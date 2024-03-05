@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { ScrollView } from "react-native";
+import { Alert, ScrollView } from "react-native";
 
 import Ingredient from "../ingredient";
+import Selected from "../selected";
 
 import { styles } from "./styles";
 
@@ -15,20 +16,37 @@ export default function Ingredients() {
     setSelected(prev => [...prev, value]);
   }
 
+  function handleClearSelected() {
+    Alert.alert("Limpar", "Deseja limpar tudo?", [
+      { text: "Não", style: "cancel" },
+      { text: "Sim", onPress: () => setSelected([]) },
+    ]);
+  }
+
   return (
-    <ScrollView
-      contentContainerStyle={styles.container}
-      showsVerticalScrollIndicator={false}
-    >
-      {Array.from({ length: 100 }).map((_, index) => (
-        <Ingredient
-          key={index}
-          name="Banana"
-          image=""
-          selected={selected.includes(index.toString())}
-          onPress={() => handleToggleSelected(index.toString())}
+    <>
+      <ScrollView
+        contentContainerStyle={styles.container}
+        showsVerticalScrollIndicator={false}
+      >
+        {Array.from({ length: 100 }).map((_, index) => (
+          <Ingredient
+            key={index}
+            name="Banana"
+            image=""
+            selected={selected.includes(index.toString())}
+            onPress={() => handleToggleSelected(index.toString())}
+          />
+        ))}
+      </ScrollView>
+
+      {selected.length > 0 && (
+        <Selected
+          quantity={selected.length}
+          onClear={handleClearSelected}
+          onSearch={() => console.log("hey!")}
         />
-      ))}
-    </ScrollView>
+      )}
+    </>
   );
 }
