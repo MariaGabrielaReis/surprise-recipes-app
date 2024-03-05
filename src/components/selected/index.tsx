@@ -2,6 +2,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Text, View } from "react-native";
 import Animated, { SlideInDown, SlideOutDown } from "react-native-reanimated";
 
+import { Button } from "../button";
+
 import { theme } from "@/theme";
 import { styles } from "./styles";
 
@@ -33,6 +35,8 @@ export default function Selected({
           color={theme.colors.gray_400}
         />
       </View>
+
+      <Button title="Buscar" onPress={onSearch} />
     </Animated.View>
   );
 }
