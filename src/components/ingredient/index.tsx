@@ -20,7 +20,7 @@ export default function Ingredient({
       style={[styles.container, selected && styles.selected]}
       {...rest}
     >
-      <Image style={styles.image} />
+      <Image style={styles.image} source={{ uri: image }} />
       <Text
         style={[styles.title, selected && { color: theme.colors.green_600 }]}
       >
