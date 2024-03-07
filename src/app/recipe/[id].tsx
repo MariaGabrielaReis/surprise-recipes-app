@@ -59,7 +59,7 @@ export default function Recipes() {
         </View>
 
         <View style={styles.content}>
-          <Text style={styles.preparation}>Modo de preparado</Text>
+          <Text style={styles.preparation}>Modo de preparo</Text>
 
           <FlatList
             data={preparations}
