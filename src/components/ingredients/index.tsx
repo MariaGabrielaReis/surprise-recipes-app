@@ -1,21 +1,17 @@
 import { router } from "expo-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Alert, ScrollView } from "react-native";
 
 import { services } from "@/services";
-
 import Ingredient from "../ingredient";
 import Selected from "../selected";
 
 import { styles } from "./styles";
 
-export default function Ingredients() {
-  const [selected, setSelected] = useState<string[]>([]);
-  const [ingredients, setIngredients] = useState<IngredientResponse[]>([]);
+type Props = { ingredients: IngredientResponse[]; isHome?: boolean };
 
-  useEffect(() => {
-    services.ingredients.findAll().then(setIngredients);
-  }, []);
+export function Ingredients({ ingredients, isHome }: Props) {
+  const [selected, setSelected] = useState<string[]>([]);
 
   function handleToggleSelected(value: string) {
     if (selected.includes(value)) {
@@ -32,13 +28,17 @@ export default function Ingredients() {
   }
 
   function handleSearch() {
-    router.navigate("/recipes/");
+    router.navigate("/recipes/" + selected);
   }
 
   return (
     <>
       <ScrollView
-        contentContainerStyle={styles.container}
+        style={[styles.container, isHome && { flex: 1 }]}
+        contentContainerStyle={[
+          styles.ingredientsContent,
+          isHome && { paddingBottom: 200 },
+        ]}
         showsVerticalScrollIndicator={false}
       >
         {ingredients.map(item => (
